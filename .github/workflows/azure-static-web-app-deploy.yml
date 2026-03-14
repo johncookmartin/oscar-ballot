@@ -1,0 +1,84 @@
+name: Build and Deploy Oscar Ballot App
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  DEPLOYMENT_ACTION: upload
+  APP_LOCATION: /
+  OUTPUT_LOCATION: dist
+  API_LOCATION: ''
+  NODE_VERSION: '20'
+  NODE_CACHE: npm
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Ensure Azure CLI static web app extension
+        run: |
+          az extension add --name staticwebapp --upgrade
+
+      - name: get SWA deployment token (runtime)
+        id: swa_token
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TOKEN=$(az staticwebapp secrets list \
+            --name "${{ secrets.AZURE_SWA_NAME }}" \
+            --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
+            --query "properties.apiKey" -o tsv)
+
+          if [ -z "$TOKEN" ]; then
+            echo "ERROR: SWA token came back empty" >&2
+            exit 1
+          fi
+
+          echo "::add-mask::$TOKEN"
+          echo "token=$TOKEN" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: ${{ env.NODE_CACHE }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ steps.swa_token.outputs.token }}
+          action: ${{ env.DEPLOYMENT_ACTION }}
+          app_location: ${{ env.APP_LOCATION }}
+          output_location: ${{ env.OUTPUT_LOCATION }}
+          api_location: ${{ env.API_LOCATION }}
+
+      - name: logout
+        if: always()
+        run: |
+          az logout
