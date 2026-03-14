@@ -25,7 +25,7 @@ npm install
 npm run dev
 ```
 
-The app expects a backend API. For more information see the [Cook-Martin Backend Api](https://github.com/johncookmartin/cookmartin-api) Set the base URL in the relevant config before running.
+The app expects a backend API. For more information see the [Cook-Martin Backend Api](https://github.com/johncookmartin/cookmartin-api). Set the base URL in the relevant config before running.
 
 ## Scripts
 
