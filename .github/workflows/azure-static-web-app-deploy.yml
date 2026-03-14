@@ -63,6 +63,17 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: ${{ env.NODE_CACHE }}
 
+      - name: Create .env.production
+        run: |
+          cat > .env.production << 'EOF'
+          VITE_AZURE_CLIENT_ID=${{ secrets.VITE_AZURE_CLIENT_ID }}
+          VITE_AZURE_AUTHORITY=${{ secrets.VITE_AZURE_AUTHORITY }}
+          VITE_REDIRECT_URI=${{ secrets.VITE_REDIRECT_URI }}
+          VITE_REDIRECT_LOGOUT_URI=${{ secrets.VITE_REDIRECT_LOGOUT_URI }}
+          VITE_API_SCOPE=${{ secrets.VITE_API_SCOPE }}
+          VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}
+          EOF
+
       - name: Install dependencies
         run: npm ci
 
