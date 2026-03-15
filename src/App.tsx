@@ -8,6 +8,7 @@ import Categories from './pages/Categories';
 import Picks from './pages/Picks';
 import Admin from './pages/Admin';
 import Selections from './pages/Selections';
+import { SignalRProvider } from './signalr/SignalRProvider';
 
 const theme = createTheme({
   palette: {
@@ -38,6 +39,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <SignalRProvider>
       <BrowserRouter>
         <Routes>
           <Route element={<MainLayout />}>
@@ -52,6 +54,7 @@ const App = () => {
           </Route>
         </Routes>
       </BrowserRouter>
+      </SignalRProvider>
     </ThemeProvider>
   );
 };

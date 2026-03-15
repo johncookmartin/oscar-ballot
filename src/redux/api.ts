@@ -21,7 +21,7 @@ const scope = import.meta.env.VITE_API_SCOPE as string;
 
 export const api = createApi({
   reducerPath: 'api',
-  tagTypes: ['Categories'],
+  tagTypes: ['Categories', 'Leaderboard', 'Submissions', 'UserResults'],
   baseQuery: async (args, api, extraOptions) => {
     if (!msalInstance || !getAccountFn) {
       return {

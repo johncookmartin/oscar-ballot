@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import CookMartinLogo from '../assets/CookMartinOscarLogo.png';
 import { useGetLeaderboardQuery } from '../redux/oscarApi';
 
-const CEREMONY_TIME = new Date('2026-03-15T19:00:00');
+const CEREMONY_TIME = new Date('2026-03-15T19:00:00-04:00');
 
 function getCountdown(target: Date): string {
   const diff = target.getTime() - Date.now();
@@ -34,7 +34,6 @@ const Home: React.FC = () => {
   const [countdown, setCountdown] = useState(() => getCountdown(CEREMONY_TIME));
 
   const { data, isLoading, isError } = useGetLeaderboardQuery(undefined, {
-    pollingInterval: isLive ? 10000 : 0,
     skip: !isLive,
   });
 

@@ -45,6 +45,7 @@ export const oscarApi = api.injectEndpoints({
       query: () => '/oscar/leaderboard',
       transformResponse: (res: OkResponse<LeaderboardEntry[]>) => res.data,
       extraOptions: { public: true },
+      providesTags: ['Leaderboard'],
     }),
 
     getCategories: builder.query<CategoryDto[], void>({
@@ -58,6 +59,7 @@ export const oscarApi = api.injectEndpoints({
       query: () => '/oscar/submissions',
       transformResponse: (res: OkResponse<SubmissionEntry[]>) => res.data,
       extraOptions: { public: true },
+      providesTags: ['Submissions'],
     }),
 
     getUserResults: builder.query<UserResultDto[], string>({
@@ -65,6 +67,7 @@ export const oscarApi = api.injectEndpoints({
         `/oscar/users/${encodeURIComponent(userName)}/results`,
       transformResponse: (res: OkResponse<UserResultDto[]>) => res.data,
       extraOptions: { public: true },
+      providesTags: ['UserResults'],
     }),
 
     submitPicks: builder.mutation<void, { userName: string; picks: number[] }>({

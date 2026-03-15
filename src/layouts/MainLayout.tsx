@@ -2,6 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import SignalRStatusBadge from '../components/SignalRStatusBadge';
 
 const MainLayout: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const MainLayout: React.FC = () => {
       <Box component="main" sx={{ flex: 1 }}>
         <Outlet />
       </Box>
+      <SignalRStatusBadge />
     </Box>
   );
 };

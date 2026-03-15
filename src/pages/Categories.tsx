@@ -15,7 +15,7 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { useGetCategoriesQuery } from '../redux/oscarApi';
 
 const Categories: React.FC = () => {
-  const { data, isLoading, isError } = useGetCategoriesQuery(undefined, {pollingInterval: 10000});
+  const { data, isLoading, isError } = useGetCategoriesQuery();
 
   const sorted = data ? [...data].sort((a, b) => a.displayOrder - b.displayOrder) : [];
 

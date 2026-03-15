@@ -29,14 +29,13 @@ const Selections: React.FC = () => {
     data: submissions,
     isLoading: subsLoading,
     isError: subsError,
-  } = useGetSubmissionsQuery(undefined, { pollingInterval: 10000 });
+  } = useGetSubmissionsQuery();
   const {
     data: results,
     isLoading: resultsLoading,
     isError: resultsError,
   } = useGetUserResultsQuery(selectedUser ?? '', {
     skip: selectedUser === null,
-    pollingInterval: 10000,
   });
 
   const sortedResults = results
