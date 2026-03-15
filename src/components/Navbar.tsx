@@ -58,19 +58,39 @@ const Navbar: React.FC = () => {
       </AppBar>
 
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
-        <List sx={{ width: 250 }}>
-          {menuItems.map((item) => (
-            <ListItem disablePadding key={item.label}>
+        <Box
+          sx={{
+            width: 250,
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+          }}
+        >
+          <List>
+            {menuItems.map((item) => (
+              <ListItem disablePadding key={item.label}>
+                <ListItemButton
+                  component={Link}
+                  to={item.path}
+                  onClick={toggleDrawer(false)}
+                >
+                  <ListItemText primary={item.label} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <List sx={{ mt: 'auto' }}>
+            <ListItem disablePadding>
               <ListItemButton
                 component={Link}
-                to={item.path}
+                to="https://yellow-pond-0ff1d8e0f.4.azurestaticapps.net/"
                 onClick={toggleDrawer(false)}
               >
-                <ListItemText primary={item.label} />
+                <ListItemText primary="Cook-Martin Home" />
               </ListItemButton>
             </ListItem>
-          ))}
-        </List>
+          </List>
+        </Box>
       </Drawer>
     </>
   );
