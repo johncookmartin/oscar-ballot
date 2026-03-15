@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import CookMartinLogo from '../assets/CookMartinOscarLogo.png';
+import PickQrCode from '../assets/submit_pics_qr.png';
 import { useGetLeaderboardQuery } from '../redux/oscarApi';
 
 const CEREMONY_TIME = new Date('2026-03-15T19:00:00-04:00');
@@ -86,6 +87,28 @@ const Home: React.FC = () => {
           >
             {countdown}
           </Typography>
+          <Box
+            sx={{
+              width: '100%',
+              display: { xs: 'none', sm: 'flex' },
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Box
+              component="img"
+              src={PickQrCode}
+              alt="Submit Picks Qr Code"
+              sx={{
+                maxWidth: 250,
+                width: '100%',
+                height: 'auto',
+              }}
+            />
+            <Typography variant="h6" align="center" color="text.secondary">
+              Don't Forget to Scan the QR Code to Submit Picks!
+            </Typography>
+          </Box>
         </Box>
       </Container>
     );
