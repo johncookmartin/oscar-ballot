@@ -146,7 +146,7 @@ const Home: React.FC = () => {
 
       {data && (
         <TableContainer component={Paper}>
-          <Table>
+          <Table sx={{ '& .MuiTableCell-root': { fontSize: '1.25rem' } }}>
             <TableHead>
               <TableRow>
                 <TableCell sx={{ fontWeight: 700, width: 80 }}>Rank</TableCell>
