@@ -11,6 +11,18 @@ import { store } from './redux/store.ts';
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
+await msalInstance.initialize();
+const redirectResponse = await msalInstance.handleRedirectPromise();
+
+if (redirectResponse?.account) {
+  msalInstance.setActiveAccount(redirectResponse.account);
+} else {
+  const accounts = msalInstance.getAllAccounts();
+  if (accounts.length > 0) {
+    msalInstance.setActiveAccount(accounts[0]);
+  }
+}
+
 initApiAuth({
   msal: msalInstance,
   getAccount: () =>
