@@ -16,6 +16,7 @@ env:
   API_LOCATION: ''
   NODE_VERSION: '20'
   NODE_CACHE: npm
+  COOKMARTIN_HOME: 'https://yellow-pond-0ff1d8e0f.4.azurestaticapps.net/'
 
 jobs:
   build_and_deploy:
@@ -72,6 +73,7 @@ jobs:
           VITE_REDIRECT_LOGOUT_URI=${{ secrets.VITE_REDIRECT_LOGOUT_URI }}
           VITE_API_SCOPE=${{ secrets.VITE_API_SCOPE }}
           VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}
+          VITE_COOKMARTIN_HOME=${{ env.COOKMARTIN_HOME }}
           EOF
 
       - name: Install dependencies

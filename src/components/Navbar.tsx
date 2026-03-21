@@ -17,6 +17,7 @@ import AuthButton from './AuthButton';
 
 const Navbar: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const home = import.meta.env.VITE_COOKMARTIN_HOME as string;
   const isAuthenticated = useIsAuthenticated();
 
   const toggleDrawer =
@@ -83,7 +84,7 @@ const Navbar: React.FC = () => {
             <ListItem disablePadding>
               <ListItemButton
                 component={Link}
-                to="https://yellow-pond-0ff1d8e0f.4.azurestaticapps.net/"
+                to={home}
                 onClick={toggleDrawer(false)}
               >
                 <ListItemText primary="Cook-Martin Home" />
